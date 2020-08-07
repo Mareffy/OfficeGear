@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrockController : MonoBehaviour
+public class ClockController : MonoBehaviour
 {
-    //Crockの移動速度
+    //効果音
+    AudioSource audiosource;
+    //Clockの移動速度
     private float speed = -10;
 
     //消滅位置
@@ -13,13 +15,13 @@ public class CrockController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.audiosource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Crockを移動させる
+        //Clockを移動させる
         transform.Translate(this.speed * Time.deltaTime,0,0);
         //画面外に出たら破棄
         if(transform.position.x < this.deadLine)
@@ -27,4 +29,5 @@ public class CrockController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }

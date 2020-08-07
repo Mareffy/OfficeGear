@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class StarController : MonoBehaviour
 {
+    //効果音
+    AudioSource audiosource;
     //Starの移動速度
     private float speed = -10;
 
@@ -15,7 +17,7 @@ public class StarController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.audiosource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

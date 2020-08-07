@@ -6,16 +6,16 @@ public class ItemGenerator : MonoBehaviour
 {
     //SterPrefabを入れる
 	public GameObject starPrefab;
-	//CrockPrefabを入れる
-	public GameObject crockPrefab;
+    //HighSterPrefabを入れる
+    public GameObject highstarPrefab;
+	//ClockPrefabを入れる
+	public GameObject clockPrefab;
 
     //時間計測用の変数
 	private float delta = 0;
 
     //アイテムの生成間隔
-	private float span = 2.0f;
-
-
+	private float span = 3.0f;
 
 
     //アイテムの生成位置オフセット
@@ -41,7 +41,7 @@ public class ItemGenerator : MonoBehaviour
         {
             //2秒毎にStarかCrockをランダムで生成
 			int item = Random.Range(1,11);
-            if(1 <= item && item <= 6)
+            if(1 <= item && item <= 4)
             {
                 for(int i =0; i < 1; i++)
                 {
@@ -51,17 +51,27 @@ public class ItemGenerator : MonoBehaviour
                 }
                           
             }
-            else if(7 <= item && item <= 11)
+            else if(5 <= item && item <= 8)
             {
                 for(int i =0; i < 1; i++)
                 {
-                //Crockを生成
-                GameObject Crock = Instantiate(crockPrefab)as GameObject;
+                //Highstarを生成
+                GameObject highstar= Instantiate(highstarPrefab)as GameObject;
+                
+                }
+            }
+            else if(9 <= item && item <= 11)
+            {
+                for(int i =0; i < 1; i++)
+                {
+                //Clockを生成
+                GameObject Clock = Instantiate(clockPrefab)as GameObject;
                 
                 }
             }
             //次のアイテムまでの生成時間
             this.span = this.offsetX + this.spaceX * 2;
+            this.delta = 0f;
 
         }
 

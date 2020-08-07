@@ -5,6 +5,27 @@ using UnityEngine.UI;
 
 public class PlayerConroller : MonoBehaviour
 {
+    //ItemGenerator
+    public GameObject itemGenerator;
+    //BGM
+    public GameObject bgm;
+    //finishBGM
+    public GameObject finishbgm;
+    //終了演出バック
+    public GameObject finishbackground;
+    //金メダル
+    public GameObject gold;
+    //銀メダル
+    public GameObject silver;
+    //銅メダル
+    public GameObject bronze;
+
+    //効果音を入れる
+    public AudioClip sound1;
+    public AudioClip sound2;
+    public AudioClip sound3;
+    //Audiosource
+    AudioSource audiosource;
     //アニメーション
     Animator animator;
     
@@ -29,6 +50,19 @@ public class PlayerConroller : MonoBehaviour
     private GameObject scoretext;
     //スコアの点数
     private int scorept = 0;
+
+    //終了時スコアのテキスト
+    public Text finishscoretext;
+
+
+    //ゲーム終了時のテキスト
+    public Text finishtext;
+    //ゲーム終了判定
+    private bool isFinish = false;
+    //ゲーム終了後演出用タイマー
+    private float finishtimer = 5.0f;
+
+
     
     // Start is called before the first frame update
     void Start()
@@ -37,35 +71,37 @@ public class PlayerConroller : MonoBehaviour
         this.animator = GetComponent<Animator>();
         //Rigidbodyを取得
         this.rigid2D = GetComponent<Rigidbody2D>();
+        //AudioSourceのコンポーネントを取得する
+		this.audiosource = GetComponent<AudioSource>();
 
         //スコアテキストの取得
         this.scoretext = GameObject.Find("Score");
         //スコアテキストの表示
-        this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
-
-       
+        this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";       
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        // 走るアニメーションを再生するために、Animatorのパラメータを調節する
-        this.animator.SetFloat("Horizontal", 1);
+        if(isFinish == false)
+        {
+            // 走るアニメーションを再生するために、Animatorのパラメータを調節する
+            this.animator.SetFloat("Horizontal", 1);
 
-        // 着地しているかどうかを調べる
-        bool isGround = (transform.position.y > this.groundLevel) ? false : true;
-        this.animator.SetBool ("isGround", isGround);
+            // 着地しているかどうかを調べる
+            bool isGround = (transform.position.y > this.groundLevel) ? false : true;
+            this.animator.SetBool ("isGround", isGround);
 
-        // 着地状態でクリックされた場合（追加）
-        if (Input.GetMouseButtonDown (0) && isGround) 
+            // 着地状態でクリックされた場合（追加）
+            if (Input.GetMouseButtonDown (0) && isGround) 
             {
                 // 上方向の力をかける（追加）
                 this.rigid2D.velocity = new Vector2 (0, this.jumpVelocity);
             }
 
-        // クリックをやめたら上方向への速度を減速する（追加）
-        if (Input.GetMouseButton (0) == false) 
+            // クリックをやめたら上方向への速度を減速する（追加）
+            if(Input.GetMouseButton (0) == false) 
             {
                 if (this.rigid2D.velocity.y > 0) 
                 {
@@ -73,25 +109,82 @@ public class PlayerConroller : MonoBehaviour
                 }
             } 
         
-        timer -= Time.deltaTime;
-        timetext.text = "Time : " + timer.ToString("F2");
+            timer -= Time.deltaTime;
+            timetext.text = "Time : " + timer.ToString("F2");
+        
+            if(timer <= 0)
+            {
+                isFinish = true;
+                audiosource.PlayOneShot(sound2);
+            }
+        
+        }
+        else if(isFinish == true)
+        {
+            this.scoretext.GetComponent<Text>().text = "";
+            timetext.text = "";
+            finishtext.text = "Finish!";
+            itemGenerator.gameObject.SetActive(false);
+            bgm.gameObject.SetActive(false);
+            
+            finishtimer -= Time.deltaTime;
+
+            if(finishtimer <= 0)
+            {
+                finishbgm.gameObject.SetActive(true);
+                finishtext.text = "";
+                finishbackground.gameObject.SetActive(true);
+                if(scorept >= 300)
+                {
+                    
+                    finishscoretext.text = scorept + "pt";
+                    gold.gameObject.SetActive(true);
+                }
+                else if(scorept >= 200)
+                {
+                    finishscoretext.text = scorept + "pt";
+                    silver.gameObject.SetActive(true);
+                }
+                else if(scorept <= 100)
+                {
+                    finishscoretext.text = scorept + "pt";
+                    bronze.gameObject.SetActive(true);
+                }
+            }
+        }
+        
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.tag == "StarTag")
         {
-            scorept += 10;
-            Destroy(other.gameObject);        
-            this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
+        audiosource.PlayOneShot(sound1);
+        scorept += 10;
+        GetComponent<ParticleSystem>().Play();
+        Destroy(other.gameObject);        
+        this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
+        
         }
-        if(other.gameObject.tag == "CrockTag")
+        if(other.gameObject.tag == "ClockTag")
         {
-            timer += 5.0f;
-            Destroy(other.gameObject);  
-            timetext.text = "Time : " + timer.ToString("F2");      
-           
+        audiosource.PlayOneShot(sound3);
+        //時計を取ったら２秒プラス
+        timer += 2.0f;
+        timetext.text = "Time : " + timer.ToString("F2");       
         }
+        if(other.gameObject.tag == "HighStarTag")
+        {
+        audiosource.PlayOneShot(sound2);
+        //高い場所の星は高得点
+        scorept += 30;
+        GetComponent<ParticleSystem>().Play();
+        Destroy(other.gameObject);        
+        this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
+        
+        }
+
     }
+        
 
 }
