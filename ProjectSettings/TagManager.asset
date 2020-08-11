@@ -8,6 +8,7 @@ TagManager:
   - ClockTag
   - PlayerTag
   - HighStarTag
+  - RainbowStarTag
   layers:
   - Default
   - TransparentFX

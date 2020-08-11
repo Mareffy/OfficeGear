@@ -9,16 +9,8 @@ public class PlayerConroller : MonoBehaviour
     public GameObject itemGenerator;
     //BGM
     public GameObject bgm;
-    //finishBGM
-    public GameObject finishbgm;
-    //終了演出バック
-    public GameObject finishbackground;
-    //金メダル
-    public GameObject gold;
-    //銀メダル
-    public GameObject silver;
-    //銅メダル
-    public GameObject bronze;
+    
+    
 
     //効果音を入れる
     public AudioClip sound1;
@@ -40,12 +32,15 @@ public class PlayerConroller : MonoBehaviour
 
     //ジャンプの速度
     float jumpVelocity = 20;
+
+    //テキストの座布団UI
+    public GameObject scorebackground;
     
     //制限時間のテキスト
     public Text timetext;
     //制限時間
     public float timer = 30.0f;
-
+    
     //スコアのテキスト
     private GameObject scoretext;
     //スコアの点数
@@ -62,6 +57,21 @@ public class PlayerConroller : MonoBehaviour
     //ゲーム終了後演出用タイマー
     private float finishtimer = 5.0f;
 
+    //finishBGM
+    public GameObject finishbgm;
+    //終了演出バック
+    public GameObject finishbackground;
+    //金メダル
+    public GameObject gold;
+    //銀メダル
+    public GameObject silver;
+    //銅メダル
+    public GameObject bronze;
+    //タイトルに戻るボタン
+    public GameObject titlebutton;
+    //Retryボタン
+    public GameObject retrybutton;
+
 
     
     // Start is called before the first frame update
@@ -77,7 +87,9 @@ public class PlayerConroller : MonoBehaviour
         //スコアテキストの取得
         this.scoretext = GameObject.Find("Score");
         //スコアテキストの表示
-        this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";       
+        this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
+        //スコアのバックUIを表示
+        scorebackground.gameObject.SetActive(true);    
         
     }
 
@@ -126,14 +138,17 @@ public class PlayerConroller : MonoBehaviour
             finishtext.text = "Finish!";
             itemGenerator.gameObject.SetActive(false);
             bgm.gameObject.SetActive(false);
+            scorebackground.gameObject.SetActive(false);    
             
             finishtimer -= Time.deltaTime;
 
             if(finishtimer <= 0)
             {
-                finishbgm.gameObject.SetActive(true);
                 finishtext.text = "";
+                finishbgm.gameObject.SetActive(true);
                 finishbackground.gameObject.SetActive(true);
+                titlebutton.gameObject.SetActive(true);
+                retrybutton.gameObject.SetActive(true);
                 if(scorept >= 300)
                 {
                     
@@ -157,6 +172,7 @@ public class PlayerConroller : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        //星に当たった時
         if(other.gameObject.tag == "StarTag")
         {
         audiosource.PlayOneShot(sound1);
@@ -169,15 +185,25 @@ public class PlayerConroller : MonoBehaviour
         if(other.gameObject.tag == "ClockTag")
         {
         audiosource.PlayOneShot(sound3);
-        //時計を取ったら２秒プラス
-        timer += 2.0f;
+        //時計を取ったら5秒プラス
+        timer += 5.0f;
         timetext.text = "Time : " + timer.ToString("F2");       
         }
         if(other.gameObject.tag == "HighStarTag")
         {
         audiosource.PlayOneShot(sound2);
-        //高い場所の星は高得点
-        scorept += 30;
+        //高い場所の星は20点
+        scorept += 20;
+        GetComponent<ParticleSystem>().Play();
+        Destroy(other.gameObject);        
+        this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
+        
+        }
+         if(other.gameObject.tag == "RainbowStarTag")
+        {
+        audiosource.PlayOneShot(sound2);
+        //虹色の星は50点
+        scorept += 50;
         GetComponent<ParticleSystem>().Play();
         Destroy(other.gameObject);        
         this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";

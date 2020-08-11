@@ -10,6 +10,8 @@ public class ItemGenerator : MonoBehaviour
     public GameObject highstarPrefab;
 	//ClockPrefabを入れる
 	public GameObject clockPrefab;
+    //RainbowStarPrefabを入れる
+    public GameObject rainbowstarPrefab;
 
     //時間計測用の変数
 	private float delta = 0;
@@ -45,30 +47,40 @@ public class ItemGenerator : MonoBehaviour
             {
                 for(int i =0; i < 1; i++)
                 {
-                    //Starを生成
+                    //Starを生成40%
                     GameObject star = Instantiate(starPrefab)as GameObject;
                          
                 }
                           
             }
-            else if(5 <= item && item <= 8)
+            else if(5 <= item && item <= 7)
             {
                 for(int i =0; i < 1; i++)
                 {
-                //Highstarを生成
+                //Highstarを生成30%
                 GameObject highstar= Instantiate(highstarPrefab)as GameObject;
                 
                 }
             }
-            else if(9 <= item && item <= 11)
+            else if(8 <= item && item <= 9)
             {
                 for(int i =0; i < 1; i++)
                 {
-                //Clockを生成
+                //Clockを生成20%
                 GameObject Clock = Instantiate(clockPrefab)as GameObject;
                 
                 }
             }
+              else if(10 <= item && item <= 11)
+            {
+                for(int i =0; i < 1; i++)
+                {
+                //Rainbowstarを生成
+                GameObject rainbowstar= Instantiate(rainbowstarPrefab)as GameObject;
+                
+                }
+            }
+            
             //次のアイテムまでの生成時間
             this.span = this.offsetX + this.spaceX * 2;
             this.delta = 0f;
