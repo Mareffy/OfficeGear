@@ -67,6 +67,8 @@ public class PlayerConroller : MonoBehaviour
     public GameObject silver;
     //銅メダル
     public GameObject bronze;
+    //背景の画像（project上でキャラごとに変更する）
+    public GameObject backimage;
     //タイトルに戻るボタン
     public GameObject titlebutton;
     //Retryボタン
@@ -145,6 +147,7 @@ public class PlayerConroller : MonoBehaviour
             if(finishtimer <= 0)
             {
                 finishtext.text = "";
+                backimage.gameObject.SetActive(true);
                 finishbgm.gameObject.SetActive(true);
                 finishbackground.gameObject.SetActive(true);
                 titlebutton.gameObject.SetActive(true);
