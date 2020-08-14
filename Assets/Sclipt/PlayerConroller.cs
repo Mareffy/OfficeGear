@@ -152,6 +152,7 @@ public class PlayerConroller : MonoBehaviour
                 finishbackground.gameObject.SetActive(true);
                 titlebutton.gameObject.SetActive(true);
                 retrybutton.gameObject.SetActive(true);
+                Destroy(this.gameObject);   
                 if(scorept >= 300)
                 {
                     

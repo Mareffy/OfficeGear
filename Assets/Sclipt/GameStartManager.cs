@@ -45,7 +45,6 @@ public class GameStartManager : MonoBehaviour
     {
         if(Officemanselected == true)
         {
-            Debug.Log("test");
             starttimer -= Time.deltaTime;
             if(starttimer <= 4)
             {
@@ -84,7 +83,7 @@ public class GameStartManager : MonoBehaviour
     public void OnOffice()
     {
         //椅子の人が選ばれた時
-        bool Officemanselected = true;
+        Officemanselected = true;
         //背景を消す
         background.gameObject.SetActive(false);
         //ボタンを消す
@@ -96,7 +95,7 @@ public class GameStartManager : MonoBehaviour
     public void OnSushi()
     {
         //寿司が選ばれた時
-        bool Sushiselected = true;
+        Sushiselected = true;
         //背景を消す
         background.gameObject.SetActive(false);
         //ボタンを消す
