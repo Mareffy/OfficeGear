@@ -24,10 +24,9 @@ public class GameStartManager : MonoBehaviour
     //寿司のボタン
     public GameObject sushibutton;
 
-    //椅子の人が選ばれた判定
-    private bool Officemanselected = false;
-    //寿司が選ばれた判定
-    private bool Sushiselected = false;
+    //キャラ判定0：誰も選んでない//１：officeman//2:寿司
+    public int selected = 0;
+    
 
     //椅子のキャラ
     public GameObject Officeman;
@@ -43,7 +42,7 @@ public class GameStartManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Officemanselected == true)
+        if(selected == 1)
         {
             starttimer -= Time.deltaTime;
             if(starttimer <= 4)
@@ -59,7 +58,7 @@ public class GameStartManager : MonoBehaviour
                 }
             } 
         }
-        else if(Sushiselected == true)
+        else if(selected == 2)
         {
             starttimer -= Time.deltaTime;
             if(starttimer <= 4)
@@ -83,7 +82,7 @@ public class GameStartManager : MonoBehaviour
     public void OnOffice()
     {
         //椅子の人が選ばれた時
-        Officemanselected = true;
+        selected = 1;
         //背景を消す
         background.gameObject.SetActive(false);
         //ボタンを消す
@@ -95,7 +94,7 @@ public class GameStartManager : MonoBehaviour
     public void OnSushi()
     {
         //寿司が選ばれた時
-        Sushiselected = true;
+        selected = 2;
         //背景を消す
         background.gameObject.SetActive(false);
         //ボタンを消す
