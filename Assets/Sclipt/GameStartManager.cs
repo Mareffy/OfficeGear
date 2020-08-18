@@ -23,8 +23,10 @@ public class GameStartManager : MonoBehaviour
     public GameObject officemanbutton;
     //寿司のボタン
     public GameObject sushibutton;
+    //社長のボタン
+    public GameObject Shachobutton;
 
-    //キャラ判定0：誰も選んでない//１：officeman//2:寿司
+    //キャラ判定0：誰も選んでない//１：officeman//2:寿司//3:社長
     public int selected = 0;
     
 
@@ -32,6 +34,8 @@ public class GameStartManager : MonoBehaviour
     public GameObject Officeman;
     //寿司
     public GameObject Sushi;
+    //社長のキャラ
+    public GameObject Shacho;
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +80,25 @@ public class GameStartManager : MonoBehaviour
                 }
             } 
         }
+        else if(selected == 3)
+        {
+            starttimer -= Time.deltaTime;
+            if(starttimer <= 4)
+            {
+                starttext.text = starttimer.ToString();
+                if(starttimer <= 1)
+                {
+                starttext.text = "";
+                itemgenerator.gameObject.SetActive(true);
+                //ShachoをON
+                Shacho.gameObject.SetActive(true);
+                bgm.gameObject.SetActive(true);
+
+
+                }
+            } 
+        }
+        
         
         
     }
@@ -88,6 +111,8 @@ public class GameStartManager : MonoBehaviour
         //ボタンを消す
         sushibutton.gameObject.SetActive(false);
         officemanbutton.gameObject.SetActive(false);
+        Shachobutton.gameObject.SetActive(false);
+        //キャラ選択のイメージも消す
         charaselectimage.gameObject.SetActive(false);
 
     }
@@ -100,6 +125,21 @@ public class GameStartManager : MonoBehaviour
         //ボタンを消す
         officemanbutton.gameObject.SetActive(false);
         sushibutton.gameObject.SetActive(false);
+        Shachobutton.gameObject.SetActive(false);
+        //キャラ選択のイメージも消す
+        charaselectimage.gameObject.SetActive(false);
+    }
+    public void OnShacho()
+    {
+        //社長が選ばれた時
+        selected = 3;
+        //背景を消す
+        background.gameObject.SetActive(false);
+        //ボタンを消す
+        officemanbutton.gameObject.SetActive(false);
+        sushibutton.gameObject.SetActive(false);
+        Shachobutton.gameObject.SetActive(false);
+        //キャラ選択のイメージも消す
         charaselectimage.gameObject.SetActive(false);
     }
 }
