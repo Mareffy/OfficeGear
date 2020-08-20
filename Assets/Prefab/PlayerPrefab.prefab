@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2811697008248124554}
   - component: {fileID: 2811697008248124561}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerPrefab
   m_TagString: PlayerTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,3 +164,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574f8e22045fc4a0787a4da39def6e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemGenerator: {fileID: 0}
+  bgm: {fileID: 0}
+  sound1: {fileID: 0}
+  sound2: {fileID: 0}
+  sound3: {fileID: 0}
+  sound4: {fileID: 0}
+  scorebackground: {fileID: 0}
+  timetext: {fileID: 0}
+  timer: 30
+  finishscoretext: {fileID: 0}
+  finishtext: {fileID: 0}
+  finishbgm: {fileID: 0}
+  finishbackground: {fileID: 0}
+  gold: {fileID: 0}
+  silver: {fileID: 0}
+  bronze: {fileID: 0}
+  backimage: {fileID: 0}
+  titlebutton: {fileID: 0}
+  retrybutton: {fileID: 0}

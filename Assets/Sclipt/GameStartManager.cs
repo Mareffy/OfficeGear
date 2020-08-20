@@ -56,6 +56,7 @@ public class GameStartManager : MonoBehaviour
                 {
                 starttext.text = "";
                 itemgenerator.gameObject.SetActive(true);
+
                 //officemanplayerをON
                 Officeman.gameObject.SetActive(true);
                 bgm.gameObject.SetActive(true);

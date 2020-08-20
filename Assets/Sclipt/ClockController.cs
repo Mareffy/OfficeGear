@@ -7,7 +7,7 @@ public class ClockController : MonoBehaviour
     //効果音
     AudioSource audiosource;
     //Clockの移動速度
-    private float speed = -10;
+    public float speed = -10;
 
     //消滅位置
     private float deadLine = -8;

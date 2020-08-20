@@ -16,6 +16,7 @@ public class PlayerConroller : MonoBehaviour
     public AudioClip sound1;
     public AudioClip sound2;
     public AudioClip sound3;
+    public AudioClip sound4;
     //Audiosource
     AudioSource audiosource;
     //アニメーション
@@ -179,38 +180,44 @@ public class PlayerConroller : MonoBehaviour
         //星に当たった時
         if(other.gameObject.tag == "StarTag")
         {
-        audiosource.PlayOneShot(sound1);
-        scorept += 10;
-        GetComponent<ParticleSystem>().Play();
-        Destroy(other.gameObject);        
-        this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
-        
+            audiosource.PlayOneShot(sound1);
+            scorept += 10;
+            GetComponent<ParticleSystem>().Play();
+            Destroy(other.gameObject);        
+            this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
         }
         if(other.gameObject.tag == "ClockTag")
         {
-        audiosource.PlayOneShot(sound3);
-        //時計を取ったら5秒プラス
-        timer += 5.0f;
-        timetext.text = "Time : " + timer.ToString("F2");       
+            audiosource.PlayOneShot(sound3);
+            //時計を取ったら5秒プラス
+            timer += 5.0f;
+            timetext.text = "Time : " + timer.ToString("F2");       
+        }
+        if(other.gameObject.tag == "DownClockTag")
+        {
+            audiosource.PlayOneShot(sound4);
+            //青矢印の時計を取ったら5秒カイナス
+            timer -= 5.0f;
+            timetext.text = "Time : " + timer.ToString("F2");       
         }
         if(other.gameObject.tag == "HighStarTag")
         {
-        audiosource.PlayOneShot(sound2);
-        //高い場所の星は20点
-        scorept += 20;
-        GetComponent<ParticleSystem>().Play();
-        Destroy(other.gameObject);        
-        this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
+            audiosource.PlayOneShot(sound2);
+            //高い場所の星は20点
+            scorept += 20;
+            GetComponent<ParticleSystem>().Play();
+            Destroy(other.gameObject);        
+            this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
         
         }
          if(other.gameObject.tag == "RainbowStarTag")
         {
-        audiosource.PlayOneShot(sound2);
-        //虹色の星は50点
-        scorept += 50;
-        GetComponent<ParticleSystem>().Play();
-        Destroy(other.gameObject);        
-        this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
+            audiosource.PlayOneShot(sound2);
+            //虹色の星は50点
+            scorept += 50;
+            GetComponent<ParticleSystem>().Play();
+            Destroy(other.gameObject);        
+            this.scoretext.GetComponent<Text>().text = "Score : " + scorept + " pt";
         
         }
 
