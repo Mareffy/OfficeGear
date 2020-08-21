@@ -9,8 +9,7 @@ public class PlayerConroller : MonoBehaviour
     public GameObject itemGenerator;
     //BGM
     public GameObject bgm;
-    
-    
+
 
     //効果音を入れる
     public AudioClip sound1;
@@ -62,6 +61,8 @@ public class PlayerConroller : MonoBehaviour
     public GameObject finishbgm;
     //終了演出バック
     public GameObject finishbackground;
+    //ケッカハッピョウのオブジェクト（画像）
+    public GameObject result_text_image;
     //金メダル
     public GameObject gold;
     //銀メダル
@@ -149,6 +150,7 @@ public class PlayerConroller : MonoBehaviour
             {
                 finishtext.text = "";
                 backimage.gameObject.SetActive(true);
+                result_text_image.gameObject.SetActive(true);
                 finishbgm.gameObject.SetActive(true);
                 finishbackground.gameObject.SetActive(true);
                 titlebutton.gameObject.SetActive(true);

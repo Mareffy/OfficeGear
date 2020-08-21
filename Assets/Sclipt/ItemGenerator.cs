@@ -21,7 +21,10 @@ public class ItemGenerator : MonoBehaviour
     private float speedtimer = 0;
 
     //スピードアップの間隔@
-    private float speedup = 5.0f;
+    private float speedup = 10.0f;
+
+    //スピードアップの段階
+    private int speedlevel = 0;
 
 
     //時間計測用の変数
@@ -53,14 +56,15 @@ public class ItemGenerator : MonoBehaviour
     {
         this.delta += Time.deltaTime;
         this.speedtimer += Time.deltaTime;
-        //speedtimer１０秒経過毎に少しずつアイテムのスピードアップ@
+        //speedtimer１０秒経過毎に少しずつアイテムのスピードレベルをアップ@
         if(this.speedtimer > this.speedup)
         {
+            //Speedのレベルを１あげる
+            speedlevel += 1;
             //speedtimerをリセット@
             this.speedtimer = 0f;
-            Debug.Log("test");
-            script.speed -= 10.0f;
         }
+        
         
         //span秒以上の時間が経過したかを調べる
 		if(this.delta > this.span)
@@ -73,7 +77,26 @@ public class ItemGenerator : MonoBehaviour
                 {
                     //Starを生成
                     GameObject star = Instantiate(starPrefab)as GameObject;
-                         
+                    //スピードレベルが上がる毎に
+                    if(speedlevel == 1)
+                    {
+                        //生成したオブジェクトを拾って-5スピードアップ
+                        star.GetComponent<StarController>().speed = -15;
+                    }
+                    else if(speedlevel == 2)
+                    {
+                        star.GetComponent<StarController>().speed = -20;
+                    }
+                    else if(speedlevel == 3)
+                    {
+                        
+                        star.GetComponent<StarController>().speed = -25;
+                    }
+                    else if(speedlevel == 4)
+                    {
+                        
+                        star.GetComponent<StarController>().speed = -30;
+                    }
                 }
                           
             }
@@ -81,36 +104,105 @@ public class ItemGenerator : MonoBehaviour
             {
                 for(int i =0; i < 1; i++)
                 {
-                //Highstarを生成
-                GameObject highstar= Instantiate(highstarPrefab)as GameObject;
-                
+                    //Highstarを生成
+                    GameObject highstar= Instantiate(highstarPrefab)as GameObject; 
+                    //スピードレベルが上がる毎に
+                    if(speedlevel == 1)
+                    {
+                        //生成したオブジェクトを拾って-5スピードアップ
+                        highstar.GetComponent<StarController>().speed = -15;
+                    }
+                    else if(speedlevel == 2)
+                    {
+                        highstar.GetComponent<StarController>().speed = -20;
+                    }
+                    else if(speedlevel == 3)
+                    {
+                        
+                        highstar.GetComponent<StarController>().speed = -25;
+                    }
+                    else if(speedlevel == 4)
+                    {
+                        
+                        highstar.GetComponent<StarController>().speed = -30;
+                    }
                 }
             }
             else if(8 <= item && item <= 9)
             {
                 for(int i =0; i < 1; i++)
                 {
-                //Clockを生成
-                GameObject Clock = Instantiate(clockPrefab)as GameObject;
-                
+                    //Clockを生成
+                    GameObject Clock = Instantiate(clockPrefab)as GameObject;
+                    //スピードレベルが上がる毎に
+                    if(speedlevel == 1)
+                    {
+                        //生成したオブジェクトを拾って-5スピードアップ
+                        Clock.GetComponent<StarController>().speed = -15;
+                    }
+                    else if(speedlevel == 2)
+                    {
+                        
+                        Clock.GetComponent<StarController>().speed = -20;
+                    }
+                    else if(speedlevel == 3)
+                    {
+                        Clock.GetComponent<StarController>().speed = -25;
+                    }
+                    else if(speedlevel == 4)
+                    {
+                        Clock.GetComponent<StarController>().speed = -30;
+                    }
                 }
             }
             else if(10 <= item && item <= 11)
             {
                 for(int i =0; i < 1; i++)
                 {
-                //Rainbowstarを生成
-                GameObject rainbowstar= Instantiate(rainbowstarPrefab)as GameObject;
-                
+                    //Rainbowstarを生成
+                    GameObject rainbowstar= Instantiate(rainbowstarPrefab)as GameObject;
+                    if(speedlevel == 1)
+                    {
+                        //生成したオブジェクトを拾って-5スピードアップ
+                        rainbowstar.GetComponent<StarController>().speed = -15;
+                    }
+                    else if(speedlevel == 2)
+                    {
+                        rainbowstar.GetComponent<StarController>().speed = -20;
+                    }
+                    else if(speedlevel == 3)
+                    {
+                        rainbowstar.GetComponent<StarController>().speed = -25;
+                    }
+                    else if(speedlevel == 4)
+                    {
+                        rainbowstar.GetComponent<StarController>().speed = -30;
+                    }
                 }
             }
             else if(12 <= item && item <= 14)
             {
                 for(int i =0; i < 1; i++)
                 {
-                //DownClockを生成
-                GameObject DownClock = Instantiate(downclockPrefab)as GameObject;
-                
+                    //DownClockを生成
+                    GameObject DownClock = Instantiate(downclockPrefab)as GameObject;
+                    if(speedlevel == 1)
+                    {
+                        //生成したオブジェクトを拾って-5スピードアップ
+                        DownClock.GetComponent<StarController>().speed = -15;
+                    }
+                    else if(speedlevel == 2)
+                    {
+                        DownClock.GetComponent<StarController>().speed = -20;
+                    }
+                    else if(speedlevel == 3)
+                    {
+                        DownClock.GetComponent<StarController>().speed = -25;
+                    }
+                    else if(speedlevel == 4)
+                    {
+                        DownClock.GetComponent<StarController>().speed = -30;
+                    }
                 }
             }
             
@@ -121,6 +213,7 @@ public class ItemGenerator : MonoBehaviour
             
 
         }
+        
 
 
         
