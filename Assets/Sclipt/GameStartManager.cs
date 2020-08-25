@@ -12,8 +12,11 @@ public class GameStartManager : MonoBehaviour
     //START演出用のテキスト
     public Text starttext;
     //スタート演出用タイマー
-    public float starttimer = 5.0f;
+    public float starttimer = 8.0f;
 
+    //ルール説明の背景
+    public GameObject ruleimage;
+    
     //キャラ選択の背景
     public GameObject background;
     //キャラ選択の画像テキスト
@@ -37,6 +40,9 @@ public class GameStartManager : MonoBehaviour
     //社長のキャラ
     public GameObject Shacho;
 
+    //選び終わった判定
+    private bool started = false;
+
     // Start is called before the first frame update
     void Start()
     {       
@@ -46,59 +52,68 @@ public class GameStartManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(selected == 1)
+        if(started == false)
         {
-            starttimer -= Time.deltaTime;
-            if(starttimer <= 4)
+            if(selected == 1)
             {
-                starttext.text = starttimer.ToString();
-                if(starttimer <= 1)
+                starttimer -= Time.deltaTime;
+                if(starttimer <= 4)
                 {
-                starttext.text = "";
-                itemgenerator.gameObject.SetActive(true);
-
-                //officemanplayerをON
-                Officeman.gameObject.SetActive(true);
-                bgm.gameObject.SetActive(true);
-                }
-            } 
+                    ruleimage.gameObject.SetActive(false);
+                    starttext.text = starttimer.ToString();
+                    if(starttimer <= 1)
+                    {
+                        starttext.text = "";
+                        itemgenerator.gameObject.SetActive(true);
+                        //officemanplayerをON
+                        Officeman.gameObject.SetActive(true);
+                        bgm.gameObject.SetActive(true);
+                        started = true;
+                    }
+                } 
+            }
+            else if(selected == 2)
+            {
+                starttimer -= Time.deltaTime;
+                if(starttimer <= 4)
+                {
+                    ruleimage.gameObject.SetActive(false);
+                    starttext.text = starttimer.ToString();
+                    if(starttimer <= 1)
+                    {
+                        starttext.text = "";
+                        itemgenerator.gameObject.SetActive(true);
+                        //sushiplayerをON
+                        Sushi.gameObject.SetActive(true);
+                        bgm.gameObject.SetActive(true);
+                        started = true;
+                    }
+                } 
+            }
+            else if(selected == 3)
+            {
+                starttimer -= Time.deltaTime;
+                if(starttimer <= 4)
+                {
+                    ruleimage.gameObject.SetActive(false);
+                    starttext.text = starttimer.ToString();
+                    if(starttimer <= 1)
+                    {
+                        starttext.text = "";
+                        itemgenerator.gameObject.SetActive(true);
+                        //ShachoをON
+                        Shacho.gameObject.SetActive(true);
+                        bgm.gameObject.SetActive(true);
+                        started = true;
+                    }
+                } 
+            }
         }
-        else if(selected == 2)
+        else if(started == true)
         {
-            starttimer -= Time.deltaTime;
-            if(starttimer <= 4)
-            {
-                starttext.text = starttimer.ToString();
-                if(starttimer <= 1)
-                {
-                starttext.text = "";
-                itemgenerator.gameObject.SetActive(true);
-                //sushiplayerをON
-                Sushi.gameObject.SetActive(true);
-                bgm.gameObject.SetActive(true);
 
-
-                }
-            } 
         }
-        else if(selected == 3)
-        {
-            starttimer -= Time.deltaTime;
-            if(starttimer <= 4)
-            {
-                starttext.text = starttimer.ToString();
-                if(starttimer <= 1)
-                {
-                starttext.text = "";
-                itemgenerator.gameObject.SetActive(true);
-                //ShachoをON
-                Shacho.gameObject.SetActive(true);
-                bgm.gameObject.SetActive(true);
-
-
-                }
-            } 
-        }
+        
         
         
         

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerConroller : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     //ItemGenerator
     public GameObject itemGenerator;
@@ -75,6 +75,11 @@ public class PlayerConroller : MonoBehaviour
     public GameObject titlebutton;
     //Retryボタン
     public GameObject retrybutton;
+    //Shareボタン
+    public GameObject sharebutton;
+
+    //カメラ用
+    private bool resetcamera = false;
 
 
     
@@ -148,6 +153,7 @@ public class PlayerConroller : MonoBehaviour
 
             if(finishtimer <= 0)
             {
+                resetcamera = true;
                 finishtext.text = "";
                 backimage.gameObject.SetActive(true);
                 result_text_image.gameObject.SetActive(true);
@@ -155,10 +161,10 @@ public class PlayerConroller : MonoBehaviour
                 finishbackground.gameObject.SetActive(true);
                 titlebutton.gameObject.SetActive(true);
                 retrybutton.gameObject.SetActive(true);
-                Destroy(this.gameObject);   
+                sharebutton.gameObject.SetActive(true);
+                this.gameObject.SetActive(false);
                 if(scorept >= 300)
                 {
-                    
                     finishscoretext.text = scorept + "pt";
                     gold.gameObject.SetActive(true);
                 }
